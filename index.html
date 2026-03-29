@@ -42,7 +42,7 @@
         h1 { text-transform: uppercase; letter-spacing: 2px; margin: 0; font-size: 26px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 15px; flex-wrap: wrap; }
         .title-logo { height: 45px; filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2)); }
 
-        .social-links { display: flex; gap: 15px; margin-top: 10px; }
+        .social-links { display: flex; gap: 15px; margin-top: 10px; flex-wrap: wrap; justify-content: center; }
         .social-links a { text-decoration: none; color: #fff; background: var(--card-bg); border: 1px solid var(--border-color); padding: 8px 15px; border-radius: 20px; font-size: 12px; font-weight: 700; text-transform: uppercase; transition: 0.3s; }
         .social-links a:hover { border-color: var(--accent-color); transform: translateY(-2px); }
 
@@ -52,6 +52,7 @@
             text-transform: uppercase; cursor: pointer; transition: 0.3s;
             box-shadow: 0 4px 15px rgba(230, 0, 0, 0.3); margin-bottom: 40px; position: relative; z-index: 1;
         }
+        .rules-btn:hover { background-color: #ff1a1a; transform: scale(1.05); }
 
         /* --- СЕТКА --- */
         .bracket-wrapper { width: 100%; overflow-x: auto; padding-bottom: 30px; cursor: grab; position: relative; z-index: 1; }
@@ -72,10 +73,12 @@
         .prize-gold { color: var(--gold-color); font-weight: 900; font-size: 20px; margin-bottom: 12px; text-shadow: 0 0 10px rgba(255, 204, 0, 0.5); }
         .prize-silver { color: var(--silver-color); font-weight: 800; font-size: 18px; margin-top: 12px; text-shadow: 0 0 8px rgba(192, 192, 192, 0.4); }
 
-        /* --- КУРАТОРЫ --- */
-        .curators-section { width: 100%; max-width: 1100px; margin-top: 50px; position: relative; z-index: 1; text-align: center; }
-        .curators-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; padding-bottom: 40px; }
-        .curator-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; backdrop-filter: blur(10px); cursor: pointer; text-align: left; transition: 0.3s; }
+        /* --- КУРАТОРЫ (ПИРАМИДА) --- */
+        .curators-section { width: 100%; max-width: 1000px; margin-top: 50px; position: relative; z-index: 1; text-align: center; }
+        .curators-pyramid { display: flex; flex-direction: column; gap: 20px; align-items: center; padding-bottom: 40px; }
+        .curators-tier { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; width: 100%; }
+        
+        .curator-card { width: 100%; max-width: 260px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; backdrop-filter: blur(10px); cursor: pointer; text-align: left; transition: 0.3s; flex: 0 1 260px; }
         .curator-card:hover { border-color: var(--accent-color); }
         .curator-header { padding: 12px; border-left: 4px solid var(--ds-color); }
         .role-org-line { border-left-color: var(--org-color); }
@@ -109,8 +112,8 @@
             Anteiku 2026 March Duo Tournament
         </h1>
         <div class="social-links">
-            <a href="https://t.me/byanteiku" target="_blank"><i class="fa-brands fa-telegram"></i> TG Anteiku</a>
-            <a href="https://discord.gg/qgVS7gaxf" target="_blank"><i class="fa-brands fa-discord"></i> DS Anteiku</a>
+            <a href="https://t.me/byanteiku" target="_blank"><i class="fa-brands fa-telegram"></i> Телеграм канал Anteiku</a>
+            <a href="https://discord.gg/qgVS7gaxf" target="_blank"><i class="fa-brands fa-discord"></i> Дискорд канал Anteiku</a>
         </div>
     </div>
 
@@ -135,57 +138,63 @@
 
     <section class="curators-section">
         <h2 style="text-transform:uppercase; font-size:18px; margin-bottom:20px;">Кураторы турнира</h2>
-        <div class="curators-grid">
+        <div class="curators-pyramid">
             
-            <div class="curator-card">
-                <div class="curator-header role-org-line"><span class="curator-name" style="color:var(--org-color)">@wincommunity</span><span class="curator-role">Организатор</span></div>
-                <div class="curator-links">
-                    <a href="https://t.me/nepecnume" target="_blank" class="contact-row"><i class="fa-brands fa-telegram" style="color:var(--tg-color)"></i> @nepecnume</a>
-                    <a href="javascript:void(0)" onclick="navigator.clipboard.writeText('@wincommunity');alert('Copied!')" class="contact-row"><i class="fa-brands fa-discord" style="color:var(--ds-color)"></i> @wincommunity</a>
+            <div class="curators-tier">
+                <div class="curator-card">
+                    <div class="curator-header role-org-line"><span class="curator-name" style="color:var(--org-color)">@wincommunity</span><span class="curator-role">Организатор</span></div>
+                    <div class="curator-links">
+                        <a href="https://t.me/nepecnume" target="_blank" class="contact-row"><i class="fa-brands fa-telegram" style="color:var(--tg-color)"></i> @nepecnume</a>
+                        <a href="javascript:void(0)" onclick="navigator.clipboard.writeText('@wincommunity');alert('Copied!')" class="contact-row"><i class="fa-brands fa-discord" style="color:var(--ds-color)"></i> @wincommunity</a>
+                    </div>
                 </div>
             </div>
 
-            <div class="curator-card">
-                <div class="curator-header role-main-line"><span class="curator-name" style="color:var(--main-admin-color)">@yabezymecc</span><span class="curator-role">Основной следящий</span></div>
-                <div class="curator-links">
-                    <a href="https://t.me/teisheirra" target="_blank" class="contact-row"><i class="fa-brands fa-telegram" style="color:var(--tg-color)"></i> @teisheirra</a>
-                    <a href="javascript:void(0)" onclick="navigator.clipboard.writeText('@yabezymecc');alert('Copied!')" class="contact-row"><i class="fa-brands fa-discord" style="color:var(--ds-color)"></i> @yabezymecc</a>
+            <div class="curators-tier">
+                <div class="curator-card">
+                    <div class="curator-header role-main-line"><span class="curator-name" style="color:var(--main-admin-color)">@yabezymecc</span><span class="curator-role">Основной следящий</span></div>
+                    <div class="curator-links">
+                        <a href="https://t.me/teisheirra" target="_blank" class="contact-row"><i class="fa-brands fa-telegram" style="color:var(--tg-color)"></i> @teisheirra</a>
+                        <a href="javascript:void(0)" onclick="navigator.clipboard.writeText('@yabezymecc');alert('Copied!')" class="contact-row"><i class="fa-brands fa-discord" style="color:var(--ds-color)"></i> @yabezymecc</a>
+                    </div>
+                </div>
+
+                <div class="curator-card">
+                    <div class="curator-header role-main-line"><span class="curator-name" style="color:var(--main-admin-color)">@londonromantic</span><span class="curator-role">Основной следящий</span></div>
+                    <div class="curator-links">
+                        <a href="https://t.me/londoncavalier" target="_blank" class="contact-row"><i class="fa-brands fa-telegram" style="color:var(--tg-color)"></i> @londoncavalier</a>
+                        <a href="javascript:void(0)" onclick="navigator.clipboard.writeText('@londonromantic');alert('Copied!')" class="contact-row"><i class="fa-brands fa-discord" style="color:var(--ds-color)"></i> @londonromantic</a>
+                    </div>
                 </div>
             </div>
 
-            <div class="curator-card">
-                <div class="curator-header role-main-line"><span class="curator-name" style="color:var(--main-admin-color)">@londonromantic</span><span class="curator-role">Основной следящий</span></div>
-                <div class="curator-links">
-                    <a href="https://t.me/londoncavalier" target="_blank" class="contact-row"><i class="fa-brands fa-telegram" style="color:var(--tg-color)"></i> @londoncavalier</a>
-                    <a href="javascript:void(0)" onclick="navigator.clipboard.writeText('@londonromantic');alert('Copied!')" class="contact-row"><i class="fa-brands fa-discord" style="color:var(--ds-color)"></i> @londonromantic</a>
+            <div class="curators-tier">
+                <div class="curator-card">
+                    <div class="curator-header"><span class="curator-name" style="color:var(--ds-color)">@wqqq04</span><span class="curator-role">Следящий</span></div>
+                    <div class="curator-links">
+                        <a href="javascript:void(0)" onclick="navigator.clipboard.writeText('@wqqq04');alert('Copied!')" class="contact-row"><i class="fa-brands fa-discord" style="color:var(--ds-color)"></i> @wqqq04</a>
+                    </div>
                 </div>
-            </div>
 
-            <div class="curator-card">
-                <div class="curator-header"><span class="curator-name" style="color:var(--ds-color)">@wqqq04</span><span class="curator-role">Следящий</span></div>
-                <div class="curator-links">
-                    <a href="javascript:void(0)" onclick="navigator.clipboard.writeText('@wqqq04');alert('Copied!')" class="contact-row"><i class="fa-brands fa-discord" style="color:var(--ds-color)"></i> @wqqq04</a>
+                <div class="curator-card">
+                    <div class="curator-header"><span class="curator-name" style="color:var(--ds-color)">@notreuside</span><span class="curator-role">Следящий</span></div>
+                    <div class="curator-links">
+                        <a href="javascript:void(0)" onclick="navigator.clipboard.writeText('@notreuside');alert('Copied!')" class="contact-row"><i class="fa-brands fa-discord" style="color:var(--ds-color)"></i> @notreuside</a>
+                    </div>
                 </div>
-            </div>
 
-            <div class="curator-card">
-                <div class="curator-header"><span class="curator-name" style="color:var(--ds-color)">@notreuside</span><span class="curator-role">Следящий</span></div>
-                <div class="curator-links">
-                    <a href="javascript:void(0)" onclick="navigator.clipboard.writeText('@notreuside');alert('Copied!')" class="contact-row"><i class="fa-brands fa-discord" style="color:var(--ds-color)"></i> @notreuside</a>
+                <div class="curator-card">
+                    <div class="curator-header"><span class="curator-name" style="color:var(--ds-color)">@.fuggig</span><span class="curator-role">Следящий</span></div>
+                    <div class="curator-links">
+                        <a href="javascript:void(0)" onclick="navigator.clipboard.writeText('@.fuggig');alert('Copied!')" class="contact-row"><i class="fa-brands fa-discord" style="color:var(--ds-color)"></i> @.fuggig</a>
+                    </div>
                 </div>
-            </div>
 
-            <div class="curator-card">
-                <div class="curator-header"><span class="curator-name" style="color:var(--ds-color)">@.fuggig</span><span class="curator-role">Следящий</span></div>
-                <div class="curator-links">
-                    <a href="javascript:void(0)" onclick="navigator.clipboard.writeText('@.fuggig');alert('Copied!')" class="contact-row"><i class="fa-brands fa-discord" style="color:var(--ds-color)"></i> @.fuggig</a>
-                </div>
-            </div>
-
-            <div class="curator-card">
-                <div class="curator-header"><span class="curator-name" style="color:var(--ds-color)">@tortuna812</span><span class="curator-role">Следящий</span></div>
-                <div class="curator-links">
-                    <a href="javascript:void(0)" onclick="navigator.clipboard.writeText('@tortuna812');alert('Copied!')" class="contact-row"><i class="fa-brands fa-discord" style="color:var(--ds-color)"></i> @tortuna812</a>
+                <div class="curator-card">
+                    <div class="curator-header"><span class="curator-name" style="color:var(--ds-color)">@tortuna812</span><span class="curator-role">Следящий</span></div>
+                    <div class="curator-links">
+                        <a href="javascript:void(0)" onclick="navigator.clipboard.writeText('@tortuna812');alert('Copied!')" class="contact-row"><i class="fa-brands fa-discord" style="color:var(--ds-color)"></i> @tortuna812</a>
+                    </div>
                 </div>
             </div>
 
@@ -204,7 +213,7 @@
                     <tr><td>4 Этап</td><td>NC</td><td>NC</td><td class="gc-amount">250 GC</td></tr>
                     <tr><td>5 Этап</td><td>NC</td><td>NC</td><td class="gc-amount">250 GC</td></tr>
                     <tr><td>6 Этап</td><td>NC</td><td>NC</td><td class="gc-amount">250 GC</td></tr>
-                    <tr><td>Итог</td><td>NC</td><td>NC</td><td class="gc-amount">500 GC</td></tr>
+                    <tr><td>Итоги турнира</td><td>NC</td><td>NC</td><td class="gc-amount">500 GC</td></tr>
                 </tbody>
             </table>
         </div>
@@ -218,7 +227,10 @@
             { name: "QL", t1: "@mincxxx", t2: "@consiencenotfound" }, { name: "fv", t1: "@yyvv26", t2: "@izixizix" }, { name: "Восхитительные", t1: "@wast3dw1ll", t2: "@ismzxc" }, { name: "Unknown", t1: "@johnny_nolove", t2: "@nadir_alpha" }, { name: "nestrxndzsexysw", t1: "@only_nestrxndz", t2: "@torexzz." }, { name: "Ebem", t1: "@dizkoverr", t2: "@jefre_epstein" }, { name: "1winbetboom team", t1: "@quancorace", t2: "@marceline33" }, { name: "ZhasBe", t1: "@bernardszd", t2: "@dzhasikk" }, { name: "TR", t1: "@pavelmatvee11", t2: "@reinn666" }, { name: "Газан", t1: "@.maksim.dark", t2: "@fairikun" }, { name: "Mover", t1: "@tezikvalotondor", t2: "@dragon_mover" }, { name: "wp", t1: "@m9wkh", t2: "@phoenixxst." }, { name: "suzuki", t1: "@lonbbos", t2: "@bairon0364" }, { name: "Вотч", t1: "@only_winstrike", t2: "@only_dema" }, { name: "Бич и проф", t1: "@blagopodobniy", t2: "@.mqswkks" }, { name: "bg", t1: "@gracioc", t2: "@flerr1xx" }, { name: "Qwrszzzx", t1: "@qwrszxsky", t2: "@jonnybrayn_09" }, { name: "Узбек сила", t1: "@triks_vpotoke", t2: "@se00000mns6" }, { name: "HS", t1: "@hartobietes", t2: "@anqwxxd." }, { name: "faisted", t1: "@faistedrom", t2: "@imm0rtal666" }, { name: "Незнаю", t1: "@deleted.user0011", t2: "@foster_solo" }, { name: "Инвалиды Вася и Гася", t1: "@tsoufall", t2: "@wiliam_glockovv" }, { name: "Бананы", t1: "@andriudeiner", t2: "@r1ce001" }, { name: "фимоз", t1: "@ttitqqq", t2: "@rgt10.1" }, { name: "Furious top 1", t1: "@furious_official", t2: "@monte00973" }, { name: "Бичиганы", t1: "@frozeeeeen", t2: "@iwilldietraxizawrxd" }, { name: "Go", t1: "@gggg88ihhjj_55366", t2: "@dazzling666" }, { name: "xv", t1: "@xdkak", t2: "@woodyxx" }, { name: "KS", t1: "@only_deprescore", t2: "@senyaferz" }, { name: "Манчестер Юнайтед", t1: "@cutieseattle", t2: "@fimiguerreroo" }, { name: "Зайдём с легитом", t1: "@abayuzer", t2: "@sanyalegenda_" }, { name: "Тирон турма", t1: "@.w1xnis66", t2: "@_bogopodoben" }, { name: "Богдан тащи", t1: "@tr1ppppppp", t2: "@weaknessinheart" }, { name: "Наследство", t1: "@ventilyator_", t2: "@inderitance_1" }, { name: "фо / фе", t1: "@forzinio", t2: "@bratforzin" }, { name: "KwizixdxDream", t1: "@kwizixd.", t2: "@kemal_berzloy" }, { name: "не вудиксы и хдаки", t1: "@kennz.666", t2: "@wofin11" }, { name: "hrs", t1: "@awarano", t2: "@iuri07576" }, { name: "gg", t1: "@.callmelostcare", t2: "@isufferfromepilepsy" }, { name: "Haroldwizzex", t1: "@haroku", t2: "@immportal_immportal" }, { name: "Серега акелер", t1: "@fixroland", t2: "@w1nlll9999_67432" }, { name: "TD", t1: "@thunglov.0", t2: "@ya.demid" }, { name: "Все на деп", t1: "@lumbyprime", t2: "@u9ha1p69" }, { name: "nasvai", t1: "@ebnutyi", t2: "@posyabekich" }, { name: "хеллуин насвай", t1: "@excellentswet", t2: "@fl3xtro" }, { name: "TF", t1: "@zeromeoness.", t2: "@flensy2" }, { name: "Империя Вайтов", t1: "@radgaw9ch", t2: "@meow7404" }, { name: "Не знающие побед", t1: "@kanao_0101", t2: "@nasvai_." }
         ];
 
-        function drawSide(containerId, teamsR1, teamsR2, isLeft) {
+        const teamsRound1 = teamsDB.slice(0, 32);
+        const teamsRound2 = teamsDB.slice(32, 48);
+
+        function drawSide(containerId, teamsR1, teamsR2) {
             const container = document.getElementById(containerId);
             const stages = [ { title: "1/32", matches: 8 }, { title: "1/16", matches: 8 }, { title: "1/8", matches: 4 }, { title: "1/4", matches: 2 }, { title: "Полуфинал", matches: 1 } ];
             let r1Idx = 0, r2Idx = 0;
@@ -237,11 +249,11 @@
                     }
                     round.appendChild(match);
                 }
-                if(isLeft) container.appendChild(round); else container.prepend(round);
+                container.appendChild(round); // Теперь используется только appendChild, поэтому порядок правильный
             });
         }
-        drawSide('bracket-left', teamsDB.slice(0, 16), teamsDB.slice(32, 40), true);
-        drawSide('bracket-right', teamsDB.slice(16, 32), teamsDB.slice(40, 48), false);
+        drawSide('bracket-left', teamsDB.slice(0, 16), teamsDB.slice(32, 40));
+        drawSide('bracket-right', teamsDB.slice(16, 32), teamsDB.slice(40, 48));
 
         document.querySelectorAll('.team').forEach(t => t.onclick = () => {
             if (t.dataset.name === "TBD") return;

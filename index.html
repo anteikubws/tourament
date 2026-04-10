@@ -221,7 +221,7 @@
                 <tbody>
                     <tr><td>1 Этап</td><td>@yyvv26</td><td>@hartobietes</td><td class="gc-amount">250 GC</td></tr>
                     <tr><td>2 Этап</td><td>@consciencenotfound</td><td>johnny_nolove</td><td class="gc-amount">250 GC</td></tr>
-                    <tr><td>3 Этап</td><td>@nn_nn_nn</td><td>@andriudeiner</td><td class="gc-amount">250 GC</td></tr>
+                    <tr><td>3 Этап</td><td>@nn__nn__nn</td><td>@andriudeiner</td><td class="gc-amount">250 GC</td></tr>
                     <tr><td>4 Этап</td><td>NC</td><td>NC</td><td class="gc-amount">250 GC</td></tr>
                     <tr><td>5 Этап</td><td>NC</td><td>NC</td><td class="gc-amount">250 GC</td></tr>
                     <tr><td>6 Этап</td><td>NC</td><td>NC</td><td class="gc-amount">250 GC</td></tr>
@@ -341,7 +341,12 @@
         const autoLossTeams =;
 
         // СПИСКИ ПОБЕДИТЕЛЕЙ ПО ЭТАПАМ
-        const winners1_32 = ["HS", "fv", "bg", "suzuki", "Зайдём с легитом", "#жировая_складка", "Friki", "Не знающие побед", "Бананы", "wp", "Незнаю", "Haroldwizzex", "nasvai", "Манчестер Юнайтед", "1winbetboom team", "Название", "TF", "Западной Казахстан", "Mover", "Unknown", "Тирон турма", "gg", "фимоз", "не вудиксы и хдаки", "Серега акелер", "hrs", "Xv", "Alpha", "BH", "Вип казак", "Топ", "Клубника"];
+        const winners1_32 = [
+            "HS", "fv", "bg", "suzuki", "Зайдём с легитом", "#жировая_складка", "Friki", "Не знающие побед", 
+            "Бананы", "wp", "Незнаю", "Haroldwizzex", "nasvai", "Манчестер Юнайтед", "1winbetboom team", "Название", 
+            "TF", "Западной Казахстан", "Mover", "Unknown", "Тирон турма", "gg", "фимоз", "не вудиксы и хдаки", 
+            "Xv", "Alpha", "BH", "Вип казак", "Клубника"
+        ];
         
         const winners1_16 =;
         
@@ -396,13 +401,15 @@
         drawSide('bracket-left', teamsDB.slice(0, 32));
         drawSide('bracket-right', teamsDB.slice(32, 64));
 
-        document.querySelectorAll('.team').forEach(t => t.onclick = () => {
-            if (!t.dataset.name || t.dataset.name === "TBD") return;
-            document.getElementById("modalTitle").innerText = t.dataset.name;
-            document.getElementById("modalPlayers").innerHTML = `
-                <div style="background:rgba(114,137,218,0.1); color:#7289DA; padding:10px; margin:10px 0; border-radius:8px; border:1px solid rgba(114,137,218,0.3); font-weight:600;"><i class="fa-brands fa-discord"></i> ${t.dataset.t1}</div>
-                <div style="background:rgba(114,137,218,0.1); color:#7289DA; padding:10px; margin:10px 0; border-radius:8px; border:1px solid rgba(114,137,218,0.3); font-weight:600;"><i class="fa-brands fa-discord"></i> ${t.dataset.t2}</div>`;
-            document.getElementById('infoModal').style.display = 'flex';
+        document.querySelectorAll('.team').forEach(t => {
+            t.onclick = () => {
+                if (!t.dataset.name || t.dataset.name === "TBD") return;
+                document.getElementById("modalTitle").innerText = t.dataset.name;
+                document.getElementById("modalPlayers").innerHTML = `
+                    <div style="background:rgba(114,137,218,0.1); color:#7289DA; padding:10px; margin:10px 0; border-radius:8px; border:1px solid rgba(114,137,218,0.3); font-weight:600;"><i class="fa-brands fa-discord"></i> ${t.dataset.t1}</div>
+                    <div style="background:rgba(114,137,218,0.1); color:#7289DA; padding:10px; margin:10px 0; border-radius:8px; border:1px solid rgba(114,137,218,0.3); font-weight:600;"><i class="fa-brands fa-discord"></i> ${t.dataset.t2}</div>`;
+                document.getElementById('infoModal').style.display = 'flex';
+            };
         });
 
         const slider = document.getElementById('scroll-area');

@@ -149,9 +149,9 @@
                 <div class="final-match">
                     <h2 style="color: #fff; font-size: 16px;">Grand Final</h2>
                     <div class="prize-gold"><i class="fa-solid fa-trophy"></i> 6.500₽</div>
-                    <div style="padding:12px; background:rgba(255,255,255,0.03); border-radius:6px; margin:5px 0; border:1px solid var(--border-color); font-weight:700;">TBD</div>
+                    <div style="padding:12px; background:rgba(255,255,255,0.03); border-radius:6px; margin:5px 0; border:1px solid var(--border-color); font-weight:700;" id="final-team-1">TBD</div>
                     <div style="color:var(--accent-color); font-weight:bold; margin:2px 0; font-size:12px;">VS</div>
-                    <div style="padding:12px; background:rgba(255,255,255,0.03); border-radius:6px; margin:5px 0; border:1px solid var(--border-color); font-weight:700;">TBD</div>
+                    <div style="padding:12px; background:rgba(255,255,255,0.03); border-radius:6px; margin:5px 0; border:1px solid var(--border-color); font-weight:700;" id="final-team-2">TBD</div>
                     <div class="prize-silver"><i class="fa-solid fa-medal"></i> 3.000₽</div>
                 </div>
             </div>
@@ -260,8 +260,8 @@
     </div>
     
     <div id="infoModal" class="modal"><div class="modal-content"><span class="close" onclick="document.getElementById('infoModal').style.display='none'">&times;</span><h2 id="modalTitle"></h2><div id="modalPlayers"></div></div></div>
+
     <script>
-        // Скрипт защиты: Блокировка ПКМ и горячих клавиш
         document.addEventListener('contextmenu', event => event.preventDefault());
         document.addEventListener('keydown', event => {
             if (event.key === 'F12' || event.keyCode === 123) event.preventDefault();
@@ -269,93 +269,59 @@
             if (event.ctrlKey && event.key.toUpperCase() === 'U') event.preventDefault();
         });
 
+        // Оставили ровно 32 команды, которые прошли в 1/16
         const teamsDB = [
+            // Левая сетка (16 команд)
             { name: "HS", t1: "@hartobietes", t2: "@anqwxxd." },
-            { name: "фо / фе", t1: "@forzinio", t2: "@bratforzin" },
-            { name: "ZhasBe", t1: "@bernardszd", t2: "@dzhasikk" },
             { name: "fv", t1: "@yyvv26", t2: "@izixizix" },
             { name: "bg", t1: "@gracioc", t2: "@flerr1xx" },
-            { name: "Go", t1: "@gggg88ihhjj_55366", t2: "@dazzling666" },
-            { name: "Ebem", t1: "@dizkoverr", t2: "@jefre_epstein" },
             { name: "suzuki", t1: "@lonbbos", t2: "@bairon0364" },
-            { name: "Вотч", t1: "@only_winstrike", t2: "@only_dema" },
             { name: "Зайдём с легитом", t1: "@abayuzer", t2: "@sanyalegenda_" },
-            { name: "TR", t1: "@pavelmatvee11", t2: "@reinn666" },
             { name: "#жировая_складка", t1: "@tripplesix999", t2: "@adrizexx" },
-            { name: "Богдан тащи", t1: "@tr1ppppppp", t2: "@weaknessinheart" },
             { name: "Friki", t1: "@nn__nn__nn", t2: "@millionrraresniy_01823" },
-            { name: "KS", t1: "@only_deprescore", t2: "@senyaferz" },
             { name: "Не знающие побед", t1: "@kanao_0101", t2: "@nasvai_." },
-            { name: "Qwrszzzx", t1: "@qwrszxsky", t2: "@jonnybrayn_09" },
             { name: "Бананы", t1: "@andriudeiner", t2: "@r1ce001" },
             { name: "wp", t1: "@m9wkh", t2: "@phoenixxst." },
-            { name: "Наследство", t1: "@ventilyator_", t2: "@inderitance_1" },
-            { name: "faisted", t1: "@faistedrom", t2: "@imm0rtal666" },
             { name: "Незнаю", t1: "@deleted.user0011", t2: "@foster_solo" },
             { name: "Haroldwizzex", t1: "@haroku", t2: "@immportal_immportal" },
-            { name: "Furious top 1", t1: "@furious_official", t2: "@monte00973" },
-            { name: "Бич и проф", t1: "@blagopodobniy", t2: "@.mqswkks" },
             { name: "nasvai", t1: "@ebnutyi", t2: "@posyabekich" },
-            { name: "Восхитительные", t1: "@wast3dw1ll", t2: "@ismzxc" },
             { name: "Манчестер Юнайтед", t1: "@cutieseattle", t2: "@fimiguerreroo" },
             { name: "1winbetboom team", t1: "@quancorace", t2: "@marceline33" },
-            { name: "KwizixdxDream", t1: "@kwizixd.", t2: "@kemal_berzloy" },
             { name: "Название", t1: "@mincxxx", t2: "@consiencenotfound" },
-            { name: "TD", t1: "@thunglov.0", t2: "@ya.demid" },
-            { name: "хеллуин насвай", t1: "@excellentswet", t2: "@fl3xtro" },
+
+            // Правая сетка (16 команд)
             { name: "TF", t1: "@zeromeoness.", t2: "@flensy2" },
             { name: "Западной Казахстан", t1: "@nightshade.o1", t2: "@teq1la0" },
-            { name: "Инвалиды Вася и Гася", t1: "@tsoufall", t2: "@wiliam_glockovv" },
             { name: "Mover", t1: "@tezikvalotondor", t2: "@dragon_mover" },
-            { name: "Фуникс", t1: "@naimont_8080", t2: "@byanxious" },
             { name: "Unknown", t1: "@johnny_nolove", t2: "@nadir_alpha" },
-            { name: "Узбек сила", t1: "@triks_vpotoke", t2: "@se00000mns6" },
-            { name: "Кмс по отсос", t1: "@wqqq04", t2: "@tyfuss0" },
-            { name: "Бичиганы", t1: "@frozeeeeen", t2: "@iwilldietraxizawrxd" }, 
-            { name: "Газан", t1: "@.maksim.dark", t2: "@fairikun" },
+            { name: "Тирон турма", t1: "@.w1xnis66", t2: "@_bogopodoben" },
             { name: "gg", t1: "@.callmelostcare", t2: "@isufferfromepilepsy" },
             { name: "фимоз", t1: "@ttitqqq", t2: "@rgt10.1" },
-            { name: "Ендермен", t1: "@a1_sxxx", t2: "@martin_quaxside" },
-            { name: "Империя Вайтов", t1: "@radgaw9ch", t2: "@meow7404" },
             { name: "не вудиксы и хдаки", t1: "@kennz.666", t2: "@wofin11" },
-            { name: "hrs", t1: "@awarano", t2: "@iuri07576" }, 
-            { name: "Тирон турма", t1: "@.w1xnis66", t2: "@_bogopodoben" }, 
+            { name: "Серега акелер", t1: "@fixroland", t2: "@w1nlll9999_67432" },
             { name: "Все на деп", t1: "@lumbyprime", t2: "@u9ha1p69" },
-            { name: "Серега акелер", t1: "@fixroland", t2: "@w1nlll9999_67432" }, 
             { name: "Xv", t1: "@xdkak", t2: "@woodyxx" },
-            { name: "Элитные проститутки", t1: "@onlyypotok", t2: "@only_feliks" },
-            { name: "Потные 777", t1: "@nononet_777", t2: "@incosloweyn" },
             { name: "Alpha", t1: "@xavasaki1", t2: "@torexzz" },
-            { name: "Hunters", t1: "@forever_prime.", t2: "@jauxyz" },
             { name: "BH", t1: "@begremyke666", t2: "@hik1ru" },
-            { name: "Пивные бочки", t1: "@jusiqq", t2: "@unknownup666" },
             { name: "Вип казак", t1: "@only_honestly", t2: "@frendigs" },
-            { name: "Joju", t1: "@andreymaximov_", t2: "@only_dag" },
             { name: "Топ", t1: "@solo_rich01_44802", t2: "@.bakiezz" },
             { name: "Клубника", t1: "@byjusik", t2: "@byquspattimon" }
         ];
 
-        const autoLossTeams =;
-
-        const winners1_32 = [
-            "HS", "fv", "bg", "suzuki", "Зайдём с легитом", "#жировая_складка", "Friki", "Не знающие побед", 
-            "Бананы", "wp", "Незнаю", "Haroldwizzex", "nasvai", "Манчестер Юнайтед", "1winbetboom team", "Название", 
-            "TD", "TF", "Mover", "Unknown", "Узбек сила", "Бичиганы", "gg", "Ендермен", "не вудиксы и хдаки", "Тирон турма", "Xv", "Элитные проститутки", "Alpha", "BH", "Вип казак", "Топ"
-        ];
-        
+        // Массивы с победителями
         const winners1_16 = [
             "fv", "bg", "#жировая_складка", "Friki", "Бананы", "Haroldwizzex", "Манчестер Юнайтед", "Название", 
-            "TF", "Unknown", "Бичиганы", "gg", "Тирон турма", "Xv", "BH", "Топ"
+            "TF", "Unknown", "Тирон турма", "не вудиксы и хдаки", "Серега акелер", "Xv", "BH", "Топ"
         ];
         
         const winners1_8 =;
         
         const winners1_4 =;
 
-        const winners1_2 =;
-
         function drawSide(containerId, sideTeams, sideIndex) {
             const container = document.getElementById(containerId);
+            
+            // Начинаем с 1/16
             const stages =;
             
             let currentStageTeams = sideTeams.slice();
@@ -367,11 +333,9 @@
                 let nextStageTeams = [];
 
                 let winList = [];
-                if (sIdx === 0) winList = winners1_32;
-                else if (sIdx === 1) winList = winners1_16;
-                else if (sIdx === 2) winList = winners1_8;
-                else if (sIdx === 3) winList = winners1_4;
-                else if (sIdx === 4) winList = winners1_2;
+                if (sIdx === 0) winList = winners1_16;
+                else if (sIdx === 1) winList = winners1_8;
+                else if (sIdx === 2) winList = winners1_4;
 
                 for (let i = 0; i < stage.matches; i++) {
                     const match = document.createElement('div'); 
@@ -388,10 +352,7 @@
                         let name = t ? t.name : "TBD";
                         let scoreVal = "0";
 
-                        if (autoLossTeams.includes(name)) {
-                            teamEl.classList.add("loss-bg");
-                            scoreVal = "L";
-                        } else if (winList.includes(name)) {
+                        if (winList.includes(name)) {
                             teamEl.classList.add("winner-text");
                             scoreVal = "2";
                             if (!pushed) {
@@ -416,7 +377,7 @@
                 container.appendChild(round);
             });
             
-            // Финал
+            // Grand Final display
             if (sideIndex === 0 && currentStageTeams) {
                 document.getElementById('final-team-1').innerText = currentStageTeams.name;
             }
@@ -425,8 +386,8 @@
             }
         }
 
-        drawSide('bracket-left', teamsDB.slice(0, 32), 0);
-        drawSide('bracket-right', teamsDB.slice(32, 64), 1);
+        drawSide('bracket-left', teamsDB.slice(0, 16), 0);
+        drawSide('bracket-right', teamsDB.slice(16, 32), 1);
 
         document.querySelectorAll('.team').forEach(t => {
             t.onclick = () => {

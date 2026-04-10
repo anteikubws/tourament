@@ -221,7 +221,7 @@
                 <tbody>
                     <tr><td>1 Этап</td><td>@yyvv26</td><td>@hartobietes</td><td class="gc-amount">250 GC</td></tr>
                     <tr><td>2 Этап</td><td>@consciencenotfound</td><td>johnny_nolove</td><td class="gc-amount">250 GC</td></tr>
-                    <tr><td>3 Этап</td><td>NC</td><td>NC</td><td class="gc-amount">250 GC</td></tr>
+                    <tr><td>3 Этап</td><td>@nn_nn_nn</td><td>@andriudeiner</td><td class="gc-amount">250 GC</td></tr>
                     <tr><td>4 Этап</td><td>NC</td><td>NC</td><td class="gc-amount">250 GC</td></tr>
                     <tr><td>5 Этап</td><td>NC</td><td>NC</td><td class="gc-amount">250 GC</td></tr>
                     <tr><td>6 Этап</td><td>NC</td><td>NC</td><td class="gc-amount">250 GC</td></tr>
@@ -266,7 +266,7 @@
         document.addEventListener('contextmenu', event => event.preventDefault());
         document.addEventListener('keydown', event => {
             if (event.key === 'F12' || event.keyCode === 123) event.preventDefault();
-            if (event.ctrlKey && event.shiftKey && ['I', 'C', 'J'].includes(event.key.toUpperCase())) event.preventDefault();
+            if (event.ctrlKey && event.shiftKey &&.includes(event.key.toUpperCase())) event.preventDefault();
             if (event.ctrlKey && event.key.toUpperCase() === 'U') event.preventDefault();
         });
 
@@ -338,33 +338,35 @@
         ];
 
         // Команды с автопоражением
-        const autoLossTeams = ["hrs"];
+        const autoLossTeams =;
 
         // СПИСКИ ПОБЕДИТЕЛЕЙ ПО ЭТАПАМ
         const winners1_32 = ["HS", "fv", "bg", "suzuki", "Зайдём с легитом", "#жировая_складка", "Friki", "Не знающие побед", "Бананы", "wp", "Незнаю", "Haroldwizzex", "nasvai", "Манчестер Юнайтед", "1winbetboom team", "Название", "TF", "Западной Казахстан", "Mover", "Unknown", "Тирон турма", "gg", "фимоз", "не вудиксы и хдаки", "Серега акелер", "hrs", "Xv", "Alpha", "BH", "Вип казак", "Топ", "Клубника"];
         
         const winners1_16 = ["fv", "bg", "#жировая_складка", "Friki", "Бананы", "Haroldwizzex", "Манчестер Юнайтед", "Название", "TF", "Unknown", "Тирон турма", "не вудиксы и хдаки", "Серега акелер", "Xv", "BH", "Топ"];
         
-        const winners1_8 = ["Haroldwizzex", "TF", "Манчестер Юнайтед"]; 
+        const winners1_8 =; 
+        
+        const winners1_4 =;
 
         function drawSide(containerId, sideTeams) {
             const container = document.getElementById(containerId);
-            const stages = [{ title: "1/32", matches: 16 }, { title: "1/16", matches: 8 }, { title: "1/8", matches: 4 }, { title: "1/4", matches: 2 }, { title: "Полуфинал", matches: 1 }];
-            let currentStageTeams = [...sideTeams];
+            const stages =;
+            let currentStageTeams =;
 
             stages.forEach((stage, sIdx) => {
                 const round = document.createElement('div'); round.className = 'round';
                 round.innerHTML = `<div class="round-title">${stage.title}</div>`;
                 let nextStageTeams = [];
 
-                let winList = [winners1_32, winners1_16, winners1_8, [], []][sIdx];
+                let winList =];
 
                 for (let i = 0; i < stage.matches; i++) {
                     const match = document.createElement('div'); match.className = 'match';
-                    let t1 = currentStageTeams[i*2] || null;
-                    let t2 = currentStageTeams[i*2+1] || null;
+                    let t1 = currentStageTeams || null;
+                    let t2 = currentStageTeams || null;
 
-                    [t1, t2].forEach(t => {
+                   .forEach(t => {
                         const teamEl = document.createElement('div'); teamEl.className = 'team';
                         let name = t ? t.name : "TBD";
                         let scoreVal = "0";
@@ -372,7 +374,7 @@
                         if (autoLossTeams.includes(name)) {
                             teamEl.classList.add("loss-bg");
                             scoreVal = "L";
-                        } else if (winList.includes(name)) {
+                        } else if (winList && winList.includes(name)) {
                             teamEl.classList.add("winner-text");
                             scoreVal = "2";
                             if (!nextStageTeams.includes(t)) nextStageTeams.push(t);

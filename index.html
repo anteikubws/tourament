@@ -80,16 +80,105 @@
         .match { background: var(--card-bg); border: 1px solid var(--border-color); margin: 8px 0; border-radius: 6px; position: relative; min-height: 44px; backdrop-filter: blur(10px); }
         .side-bracket.left .match { border-left: 3px solid var(--accent-color); }
         .side-bracket.right .match { border-right: 3px solid var(--accent-color); }
-        .team { padding: 8px 12px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); font-size: 13px; cursor: pointer; height: 35px; transition: color 0.2s; }
+        .team { padding: 8px 12px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); font-size: 13px; cursor: pointer; height: 35px; transition: color 0.2s, background 0.3s; }
         .team-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 130px; font-weight: 600; }
         .score { background: #e60000; padding: 1px 6px; border-radius: 3px; font-weight: 800; color: #fff; font-size: 10px; }
         .winner-text { color: var(--gold-color); font-weight: 800; }
         .loss-bg { background: rgba(255, 0, 0, 0.3) !important; color: #ff9999 !important; }
 
-        .central-final { width: 300px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 40px; }
-        .final-match { width: 100%; background: var(--card-bg); border: 2px solid var(--accent-color); border-radius: 8px; box-shadow: 0 0 25px rgba(230, 0, 0, 0.4); padding: 20px; text-align: center; backdrop-filter: blur(10px); }
-        .prize-gold { color: var(--gold-color); font-weight: 900; font-size: 20px; margin-bottom: 12px; text-shadow: 0 0 10px rgba(255, 204, 0, 0.5); }
-        .prize-silver { color: var(--silver-color); font-weight: 800; font-size: 18px; margin-top: 12px; text-shadow: 0 0 8px rgba(192, 192, 192, 0.4); }
+        /* --- НОВЫЕ ЭФФЕКТЫ ДЛЯ ПУТИ ФИНАЛИСТОВ (RGB ЗОЛОТО) --- */
+        @keyframes rgb-gold-glow {
+            0% { box-shadow: inset 0 0 10px rgba(255, 215, 0, 0.2), 0 0 10px rgba(255, 215, 0, 0.4); border-color: #ffcc00; }
+            50% { box-shadow: inset 0 0 15px rgba(255, 140, 0, 0.4), 0 0 20px rgba(255, 140, 0, 0.6); border-color: #ff8c00; }
+            100% { box-shadow: inset 0 0 10px rgba(255, 215, 0, 0.2), 0 0 10px rgba(255, 215, 0, 0.4); border-color: #ffcc00; }
+        }
+        .golden-path {
+            animation: rgb-gold-glow 2s infinite alternate;
+            background: linear-gradient(90deg, rgba(255, 215, 0, 0.15) 0%, rgba(0, 0, 0, 0) 100%) !important;
+            border-left: 3px solid #ffcc00 !important;
+        }
+        .side-bracket.right .golden-path {
+            background: linear-gradient(270deg, rgba(255, 215, 0, 0.15) 0%, rgba(0, 0, 0, 0) 100%) !important;
+            border-left: none !important;
+            border-right: 3px solid #ffcc00 !important;
+        }
+        .golden-text {
+            color: #ffd700 !important;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+            font-weight: 900 !important;
+        }
+
+        /* --- ОФОРМЛЕНИЕ ГРАНД ФИНАЛА --- */
+        .central-final { width: 340px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 40px; z-index: 2; }
+        
+        @keyframes final-pulse {
+            0% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.3), 0 0 15px rgba(255, 215, 0, 0.2); }
+            50% { box-shadow: 0 0 40px rgba(255, 0, 0, 0.6), 0 0 30px rgba(255, 215, 0, 0.4); transform: scale(1.02); }
+            100% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.3), 0 0 15px rgba(255, 215, 0, 0.2); }
+        }
+        
+        .final-match { 
+            width: 100%; 
+            background: rgba(15, 15, 15, 0.95); 
+            border: 2px solid #ffaa00; 
+            border-radius: 12px; 
+            padding: 25px; 
+            text-align: center; 
+            backdrop-filter: blur(15px);
+            animation: final-pulse 3s infinite ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .final-match::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+            animation: shine 4s infinite;
+        }
+        @keyframes shine { to { left: 200%; } }
+
+        .grand-final-title {
+            color: transparent;
+            background: linear-gradient(90deg, #ffd700, #ff8c00, #ffd700);
+            -webkit-background-clip: text;
+            font-size: 24px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            animation: textShine 3s infinite linear;
+            background-size: 200% auto;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+        @keyframes textShine { to { background-position: 200% center; } }
+
+        .prize-gold { color: var(--gold-color); font-weight: 900; font-size: 22px; margin-bottom: 15px; text-shadow: 0 0 15px rgba(255, 204, 0, 0.6); }
+        .prize-silver { color: var(--silver-color); font-weight: 800; font-size: 18px; margin-top: 15px; text-shadow: 0 0 10px rgba(192, 192, 192, 0.5); }
+
+        .final-team-box {
+            padding: 15px;
+            background: linear-gradient(90deg, rgba(255,215,0,0.15), rgba(255,0,0,0.15));
+            border-radius: 8px;
+            margin: 10px 0;
+            border: 1px solid #ffcc00;
+            font-weight: 900;
+            font-size: 18px;
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255,215,0,0.8);
+            text-transform: uppercase;
+            box-shadow: inset 0 0 15px rgba(255,215,0,0.1);
+        }
+        
+        .vs-text {
+            color: transparent;
+            background: linear-gradient(45deg, #ff0000, #ffaa00);
+            -webkit-background-clip: text;
+            font-weight: 900;
+            font-size: 28px;
+            margin: 10px 0;
+            filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.8));
+            font-style: italic;
+        }
 
         /* --- КУРАТОРЫ --- */
         .curators-section { width: 100%; max-width: 1000px; margin-top: 50px; position: relative; z-index: 1; text-align: center; }
@@ -147,11 +236,13 @@
             <div class="side-bracket left" id="bracket-left"></div>
             <div class="central-final">
                 <div class="final-match">
-                    <h2 style="color: #fff; font-size: 16px;">Grand Final</h2>
+                    <div class="grand-final-title"><i class="fa-solid fa-crown"></i> Grand Final</div>
                     <div class="prize-gold"><i class="fa-solid fa-trophy"></i> 6.500₽</div>
-                    <div style="padding:12px; background:rgba(255,255,255,0.03); border-radius:6px; margin:5px 0; border:1px solid var(--border-color); font-weight:700;" id="final-team-1">TBD</div>
-                    <div style="color:var(--accent-color); font-weight:bold; margin:2px 0; font-size:12px;">VS</div>
-                    <div style="padding:12px; background:rgba(255,255,255,0.03); border-radius:6px; margin:5px 0; border:1px solid var(--border-color); font-weight:700;" id="final-team-2">TBD</div>
+                    
+                    <div class="final-team-box" id="final-team-1">TBD</div>
+                    <div class="vs-text">VS</div>
+                    <div class="final-team-box" id="final-team-2">TBD</div>
+                    
                     <div class="prize-silver"><i class="fa-solid fa-medal"></i> 3.000₽</div>
                 </div>
             </div>
@@ -221,7 +312,7 @@
                     <tr><td>2 Этап</td><td>@consciencenotfound</td><td>johnny_nolove</td><td class="gc-amount">250 GC</td></tr>
                     <tr><td>3 Этап</td><td>@nn__nn__nn</td><td>@andriudeiner</td><td class="gc-amount">250 GC</td></tr>
                     <tr><td>4 Этап</td><td>@yyvv26</td><td>@izixizix</td><td class="gc-amount">250 GC</td></tr>
-                    <tr><td>5 Этап</td><td>NC</td><td>NC</td><td class="gc-amount">250 GC</td></tr>
+                    <tr><td>5 Этап</td><td>@yyvv26</td><td>@xdkak</td><td class="gc-amount">250 GC</td></tr>
                     <tr><td>6 Этап</td><td>NC</td><td>NC</td><td class="gc-amount">250 GC</td></tr>
                     <tr><td>Итоги турнира</td><td>NC</td><td>NC</td><td class="gc-amount">500 GC</td></tr>
                 </tbody>
@@ -319,14 +410,14 @@
         ];
         
         // Победители в 1/4 (вышли в Полуфинал)
-        // Xv теперь выигрывает и выходит в Полуфинал к TF
         const winners1_4 = [
             "fv", "Бананы", "TF", "Xv"
         ];
 
         // Победители в Полуфинале (вышли в Гранд-Финал)
+        // ДОБАВЛЕН Xv (победитель над TF)
         const winners1_2 = [
-            "fv"
+            "fv", "Xv"
         ];
 
         function drawSide(containerId, sideTeams, sideIndex) {
@@ -379,7 +470,14 @@
                             }
                         }
 
-                        teamEl.innerHTML = '<span class="team-name">' + name + '</span><span class="score">' + scoreVal + '</span>';
+                        // ПРИМЕНЕНИЕ RGB ЗОЛОТОГО ПУТИ ДЛЯ ФИНАЛИСТОВ (fv и Xv)
+                        if (name === "fv" || name === "Xv") {
+                            teamEl.classList.add("golden-path");
+                            teamEl.innerHTML = '<span class="team-name golden-text">' + name + '</span><span class="score" style="background:#ffcc00; color:#000;">' + scoreVal + '</span>';
+                        } else {
+                            teamEl.innerHTML = '<span class="team-name">' + name + '</span><span class="score">' + scoreVal + '</span>';
+                        }
+
                         if (t) { 
                             teamEl.dataset.t1 = t.t1; 
                             teamEl.dataset.t2 = t.t2; 

@@ -167,6 +167,25 @@
             text-shadow: 0 0 10px rgba(255,215,0,0.8);
             text-transform: uppercase;
             box-shadow: inset 0 0 15px rgba(255,215,0,0.1);
+            transition: all 0.5s ease;
+        }
+
+        /* --- СТИЛИ ДЛЯ АБСОЛЮТНОГО ЧЕМПИОНА И ПРОИГРАВШЕГО --- */
+        .champion-box {
+            background: linear-gradient(90deg, rgba(255, 215, 0, 0.3), rgba(255, 140, 0, 0.3)) !important;
+            border: 2px solid #ffd700 !important;
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.6), inset 0 0 20px rgba(255, 215, 0, 0.4) !important;
+            transform: scale(1.1);
+            z-index: 10;
+            position: relative;
+        }
+        .loser-box {
+            filter: grayscale(100%) opacity(0.4);
+            border-color: #555 !important;
+            background: rgba(30, 30, 30, 0.5) !important;
+            text-shadow: none !important;
+            color: #888 !important;
+            transform: scale(0.95);
         }
         
         .vs-text {
@@ -175,9 +194,20 @@
             -webkit-background-clip: text;
             font-weight: 900;
             font-size: 28px;
-            margin: 10px 0;
+            margin: 15px 0;
             filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.8));
             font-style: italic;
+        }
+        
+        .vs-text.finished {
+            background: none;
+            color: #ffd700;
+            -webkit-background-clip: unset;
+            font-size: 18px;
+            letter-spacing: 4px;
+            filter: none;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            font-style: normal;
         }
 
         /* --- КУРАТОРЫ --- */
@@ -205,6 +235,7 @@
         table { width: 100%; border-collapse: collapse; }
         th, td { padding: 10px; text-align: left; border-bottom: 1px solid var(--border-color); font-size: 13px; }
         .gc-amount { color: #ffcc00; font-weight: bold; }
+        .award-star { margin-right: 5px; filter: drop-shadow(0 0 4px rgba(255,215,0,0.4)); }
 
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 20px; }
         .modal-content { background: rgba(20, 20, 20, 0.95); border: 2px solid var(--accent-color); padding: 30px; width: 100%; max-width: 350px; border-radius: 12px; text-align: center; position: relative; }
@@ -240,7 +271,7 @@
                     <div class="prize-gold"><i class="fa-solid fa-trophy"></i> 6.500₽</div>
                     
                     <div class="final-team-box" id="final-team-1">TBD</div>
-                    <div class="vs-text">VS</div>
+                    <div class="vs-text" id="final-vs">VS</div>
                     <div class="final-team-box" id="final-team-2">TBD</div>
                     
                     <div class="prize-silver"><i class="fa-solid fa-medal"></i> 3.000₽</div>
@@ -313,8 +344,13 @@
                     <tr><td>3 Этап</td><td>@nn__nn__nn</td><td>@andriudeiner</td><td class="gc-amount">250 GC</td></tr>
                     <tr><td>4 Этап</td><td>@yyvv26</td><td>@izixizix</td><td class="gc-amount">250 GC</td></tr>
                     <tr><td>5 Этап</td><td>@yyvv26</td><td>@xdkak</td><td class="gc-amount">250 GC</td></tr>
-                    <tr><td>6 Этап</td><td>NC</td><td>NC</td><td class="gc-amount">250 GC</td></tr>
-                    <tr><td>Итоги турнира</td><td>NC</td><td>NC</td><td class="gc-amount">500 GC</td></tr>
+                    <tr><td>6 Этап</td><td>@xdkak</td><td>@woodyxx</td><td class="gc-amount">250 GC</td></tr>
+                    <tr style="background: rgba(255,215,0,0.1);">
+                        <td style="font-weight: 800; color: #ffd700;">Итоги турнира</td>
+                        <td style="font-weight: bold;"><i class="fa-solid fa-star award-star" style="color: gold;"></i> @yyvv26</td>
+                        <td style="font-weight: bold;"><i class="fa-solid fa-star award-star" style="color: silver;"></i> @xdkak</td>
+                        <td class="gc-amount">500 GC</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -358,7 +394,6 @@
             if (event.ctrlKey && event.key.toUpperCase() === 'U') event.preventDefault();
         });
 
-        // Сетка стартует с 1/16. Всего 32 команды (по 16 в левой и правой частях)
         const teamsDB = [
             // Левая часть сетки (16 команд)
             { name: "fv", t1: "@yyvv26", t2: "@izixizix" },
@@ -397,33 +432,16 @@
             { name: "Вип казак", t1: "@only_honestly", t2: "@frendigs" }
         ];
 
-        // Победители в 1/16 (вышли в 1/8)
-        const winners1_16 = [
-            "fv", "bg", "Friki", "#жировая_складка", "Бананы", "Haroldwizzex", "Манчестер Юнайтед", "Название",
-            "TF", "Unknown", "Тирон турма", "не вудиксы и хдаки", "Серега акелер", "Xv", "BH", "Топ"
-        ];
+        const winners1_16 = ["fv", "bg", "Friki", "#жировая_складка", "Бананы", "Haroldwizzex", "Манчестер Юнайтед", "Название", "TF", "Unknown", "Тирон турма", "не вудиксы и хдаки", "Серега акелер", "Xv", "BH", "Топ"];
+        const winners1_8 = ["fv", "Friki", "Бананы", "Манчестер Юнайтед", "TF", "Тирон турма", "Xv", "BH"];
+        const winners1_4 = ["fv", "Бананы", "TF", "Xv"];
+        const winners1_2 = ["fv", "Xv"];
         
-        // Победители в 1/8 (вышли в 1/4)
-        const winners1_8 = [
-            "fv", "Friki", "Бананы", "Манчестер Юнайтед",
-            "TF", "Тирон турма", "Xv", "BH"
-        ];
-        
-        // Победители в 1/4 (вышли в Полуфинал)
-        const winners1_4 = [
-            "fv", "Бананы", "TF", "Xv"
-        ];
-
-        // Победители в Полуфинале (вышли в Гранд-Финал)
-        // ДОБАВЛЕН Xv (победитель над TF)
-        const winners1_2 = [
-            "fv", "Xv"
-        ];
+        // Переменная абсолютного чемпиона
+        const grandChampion = "Xv";
 
         function drawSide(containerId, sideTeams, sideIndex) {
             const container = document.getElementById(containerId);
-            
-            // Задаем этапы для отрисовки
             const stages = [
                 { title: "1/16", matches: 8 },
                 { title: "1/8", matches: 4 },
@@ -460,7 +478,6 @@
                         let name = t ? t.name : "TBD";
                         let scoreVal = "0";
 
-                        // Проверяем победителей на данном этапе
                         if (winList.includes(name)) {
                             teamEl.classList.add("winner-text");
                             scoreVal = "2";
@@ -470,7 +487,6 @@
                             }
                         }
 
-                        // ПРИМЕНЕНИЕ RGB ЗОЛОТОГО ПУТИ ДЛЯ ФИНАЛИСТОВ (fv и Xv)
                         if (name === "fv" || name === "Xv") {
                             teamEl.classList.add("golden-path");
                             teamEl.innerHTML = '<span class="team-name golden-text">' + name + '</span><span class="score" style="background:#ffcc00; color:#000;">' + scoreVal + '</span>';
@@ -493,20 +509,39 @@
                 container.appendChild(round);
             });
             
-            // Если кто-то прошел полуфинал, он попадает в Гранд-Финал
+            // Логика отображения Гранд-Финала и Чемпиона
             if (sideIndex === 0 && currentStageTeams[0]) {
-                document.getElementById('final-team-1').innerText = currentStageTeams[0].name;
+                const team1Box = document.getElementById('final-team-1');
+                team1Box.innerText = currentStageTeams[0].name;
+                
+                if(currentStageTeams[0].name === grandChampion) {
+                    team1Box.classList.add('champion-box');
+                    team1Box.innerHTML = '<i class="fa-solid fa-trophy"></i> ' + currentStageTeams[0].name + ' <i class="fa-solid fa-trophy"></i>';
+                } else {
+                    team1Box.classList.add('loser-box');
+                }
             }
             if (sideIndex === 1 && currentStageTeams[0]) {
-                document.getElementById('final-team-2').innerText = currentStageTeams[0].name;
+                const team2Box = document.getElementById('final-team-2');
+                team2Box.innerText = currentStageTeams[0].name;
+                
+                if(currentStageTeams[0].name === grandChampion) {
+                    team2Box.classList.add('champion-box');
+                    team2Box.innerHTML = '<i class="fa-solid fa-trophy"></i> ' + currentStageTeams[0].name + ' <i class="fa-solid fa-trophy"></i>';
+                    
+                    // Меняем текст VS на WINNER
+                    const vsText = document.getElementById('final-vs');
+                    vsText.classList.add('finished');
+                    vsText.innerText = 'WINNER';
+                } else {
+                    team2Box.classList.add('loser-box');
+                }
             }
         }
 
-        // Отрисовываем левую и правую сетку
         drawSide('bracket-left', teamsDB.slice(0, 16), 0);
         drawSide('bracket-right', teamsDB.slice(16, 32), 1);
 
-        // Взаимодействие (модальное окно при клике на команду)
         document.querySelectorAll('.team').forEach(t => {
             t.onclick = () => {
                 if (!t.dataset.name || t.dataset.name === "TBD") return;
@@ -518,7 +553,6 @@
             };
         });
 
-        // Скроллинг сетки мышью (Drag-to-scroll)
         const slider = document.getElementById('scroll-area');
         let isDown = false, startX, scrollLeft;
         slider.onmousedown = e => { isDown = true; startX = e.pageX - slider.offsetLeft; scrollLeft = slider.scrollLeft; };
